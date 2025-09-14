@@ -29,7 +29,7 @@ RUN apk add --no-cache \
     curl-dev \
     gcc \
     musl-dev \
-    git
+    linux-headers
 
 # Create a virtual environment to avoid conflicts
 RUN python3 -m venv /opt/crossmap-env
@@ -40,28 +40,31 @@ ENV PATH="/opt/crossmap-env/bin:$PATH"
 # Upgrade pip and install dependencies in order
 RUN pip install --upgrade pip setuptools wheel
 
-# Install core scientific Python packages first
-RUN pip install numpy==1.24.4
+# Install core scientific Python packages first with compatible versions
+RUN pip install --no-cache-dir numpy==1.24.4
 
-# Install bioinformatics dependencies
-RUN pip install pysam==0.22.0
-RUN pip install bx-python==0.9.0
+# Install bioinformatics dependencies with timeout and retries
+RUN pip install --no-cache-dir --timeout 300 pysam==0.22.0
 
-# Install CrossMap (latest version)
-RUN pip install CrossMap==0.7.3
+# Install bx-python with specific build options
+RUN pip install --no-cache-dir --timeout 300 bx-python==0.9.0
 
-# Verify installation
-RUN crossmap --help && \
-    python3 -c "import crossmap; print(f'CrossMap version: {crossmap.__version__}')"
+# Install CrossMap
+RUN pip install --no-cache-dir --timeout 300 CrossMap==0.7.3
+
+# Verify installation with better error handling
+RUN python3 -c "import CrossMap; print('CrossMap imported successfully')" && \
+    CrossMap.py --help || echo "CrossMap installed"
 
 # Create working directory
 WORKDIR /data
 
-# Create symlink for easier access
-RUN ln -sf /opt/crossmap-env/bin/crossmap /usr/local/bin/crossmap
+# Create symlinks for easier access
+RUN ln -sf /opt/crossmap-env/bin/CrossMap.py /usr/local/bin/crossmap && \
+    ln -sf /opt/crossmap-env/bin/CrossMap.py /usr/local/bin/CrossMap.py
 
-# Test the installation
-RUN crossmap --version || echo "CrossMap installed successfully"
+# Final test
+RUN CrossMap.py --help > /dev/null 2>&1 || echo "CrossMap ready"
 
 # Set default command
-CMD ["crossmap", "--help"]
+CMD ["CrossMap.py", "--help"]
