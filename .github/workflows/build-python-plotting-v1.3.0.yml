@@ -3,7 +3,7 @@ name: Build Python Plotting Container v1.3.0
 on:
   push:
     paths:
-      - 'containers/python-plotting-v1.3.0/**'
+      - 'containers/python-plotting/**'
       - '.github/workflows/build-python-plotting-v1.3.0.yml'
     branches:
       - main
@@ -12,7 +12,7 @@ on:
       - complete-reporting
   pull_request:
     paths:
-      - 'containers/python-plotting-v1.3.0/**'
+      - 'containers/python-plotting/**'
       - '.github/workflows/build-python-plotting-v1.3.0.yml'
   workflow_dispatch:
     inputs:
@@ -64,8 +64,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./containers/python-plotting-v1.3.0
-          file: ./containers/python-plotting-v1.3.0/Dockerfile
+          context: ./containers/python-plotting
+          file: ./containers/python-plotting/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

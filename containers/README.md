@@ -41,9 +41,21 @@ docker pull mamana/vcf-processing:bcftools-1.20
 - **Base**: Alpine Linux 3.18
 - **Size**: ~250MB
 
+#### 4. CrossMap Coordinate Conversion
+
+```bash
+docker pull mamana/crossmap:0.7.3
+```
+
+- **Purpose**: Genome coordinate liftover between assemblies
+- **Tools**: CrossMap 0.7.3, Python 3.11, pysam, bx-python
+- **Base**: Alpine Linux 3.19
+- **Size**: ~200MB
+
 ### 🚀 Workflow Containers
 
-#### 4. Comprehensive Imputation
+#### 5. Comprehensive Imputation
+
 ```bash
 docker pull mamana/imputation:minimac4-4.1.6
 ```
@@ -52,7 +64,8 @@ docker pull mamana/imputation:minimac4-4.1.6
 - **Base**: Alpine Linux 3.18
 - **Size**: ~450MB
 
-#### 5. Comprehensive Phasing
+#### 6. Comprehensive Phasing
+
 ```bash
 docker pull mamana/phasing:eagle-2.4.1
 ```
@@ -125,6 +138,7 @@ docker-compose up imputation
 | **VCF Processing** | `mamana/vcf-processing:bcftools-1.20` | BCFtools 1.20, VCFtools 0.1.16, tabix |
 | **Quality Control** | `mamana/vcf-processing:bcftools-1.20` | BCFtools 1.20, VCFtools 0.1.16 |
 | **File Operations** | `mamana/vcf-processing:bcftools-1.20` | BCFtools 1.20, tabix |
+| **Coordinate Conversion** | `mamana/crossmap:0.7.3` | CrossMap 0.7.3, pysam, bx-python |
 | **Comprehensive** | `mamana/imputation:minimac4-4.1.6` | All imputation tools |
 
 ## Running the Pipeline

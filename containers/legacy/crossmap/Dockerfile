@@ -10,6 +10,7 @@ FROM alpine:3.18
 LABEL maintainer="Mamana Mbiyavanga mamana.mbiyavanga@uct.ac.za"
 LABEL description="CrossMap coordinate conversion tool - Latest version"
 LABEL version="0.7.3"
+LABEL org.opencontainers.image.description="CrossMap v0.7.3 coordinate conversion tool for genomics. Alpine Linux based container for lifting over genomic coordinates between assemblies."
 
 ################## BEGIN INSTALLATION ######################
 

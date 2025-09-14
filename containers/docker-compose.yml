@@ -100,6 +100,16 @@ services:
     working_dir: /data
     profiles: ["production", "all"]
 
+  # CrossMap coordinate conversion
+  crossmap:
+    image: mamana/crossmap:0.7.3
+    volumes:
+      - ./data:/data
+      - ./input:/input
+      - ./output:/output
+    working_dir: /data
+    profiles: ["production", "all"]
+
   # ========================================
   # LEGACY CONTAINERS (For backwards compatibility)
   # ========================================

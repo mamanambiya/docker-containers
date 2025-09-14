@@ -45,7 +45,7 @@ jobs:
         run: |
           # Build reliable Alpine-based containers (plink2 and analysis have dedicated workflows)
           # All containers re-enabled after successful minimac4-all troubleshooting
-          CUSTOM_CONTAINERS='["eagle-phasing", "minimac4", "minimac4-all", "imputation", "phasing", "vcf-processing", "r-analysis"]'
+          CUSTOM_CONTAINERS='["eagle-phasing", "minimac4", "minimac4-all", "imputation", "phasing", "vcf-processing", "r-analysis", "crossmap"]'
           # Temporarily excluding: ["eagle-vcf-processing"] (still has issues)
           echo "containers=${CUSTOM_CONTAINERS}" >> $GITHUB_OUTPUT
 
@@ -127,6 +127,10 @@ jobs:
             "r-analysis")
               PRIMARY_VERSION="1.0"
               ADDITIONAL_TAGS="r-4.3.2,dplyr,ggplot2,data.table"
+              ;;
+            "crossmap")
+              PRIMARY_VERSION="0.7.3"
+              ADDITIONAL_TAGS="python-3.11,pysam,bx-python"
               ;;
           esac
           
