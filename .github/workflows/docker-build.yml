@@ -45,8 +45,7 @@ jobs:
         run: |
           # Build reliable Alpine-based containers (plink2 and analysis have dedicated workflows)
           # All containers re-enabled after successful minimac4-all troubleshooting
-          CUSTOM_CONTAINERS='["eagle-phasing", "minimac4", "minimac4-all", "imputation", "phasing", "vcf-processing", "r-analysis", "crossmap"]'
-          # Temporarily excluding: ["eagle-vcf-processing"] (still has issues)
+          CUSTOM_CONTAINERS='["eagle-phasing", "minimac4", "minimac4-all", "imputation", "phasing", "vcf-processing", "r-analysis", "crossmap", "python-plotting"]'
           echo "containers=${CUSTOM_CONTAINERS}" >> $GITHUB_OUTPUT
 
       - name: Determine tag

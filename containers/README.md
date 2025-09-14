@@ -52,9 +52,20 @@ docker pull mamana/crossmap:0.7.3
 - **Base**: Alpine Linux 3.19
 - **Size**: ~200MB
 
+#### 5. Python Plotting & Analysis
+
+```bash
+docker pull mamana/python-plotting:1.3.0
+```
+
+- **Purpose**: Data visualization and statistical analysis
+- **Tools**: Python 3.11, matplotlib, seaborn, pandas, numpy, scipy, plotly
+- **Base**: Alpine Linux 3.19
+- **Size**: ~300MB
+
 ### 🚀 Workflow Containers
 
-#### 5. Comprehensive Imputation
+#### 6. Comprehensive Imputation
 
 ```bash
 docker pull mamana/imputation:minimac4-4.1.6
@@ -64,7 +75,7 @@ docker pull mamana/imputation:minimac4-4.1.6
 - **Base**: Alpine Linux 3.18
 - **Size**: ~450MB
 
-#### 6. Comprehensive Phasing
+#### 7. Comprehensive Phasing
 
 ```bash
 docker pull mamana/phasing:eagle-2.4.1
@@ -139,6 +150,7 @@ docker-compose up imputation
 | **Quality Control** | `mamana/vcf-processing:bcftools-1.20` | BCFtools 1.20, VCFtools 0.1.16 |
 | **File Operations** | `mamana/vcf-processing:bcftools-1.20` | BCFtools 1.20, tabix |
 | **Coordinate Conversion** | `mamana/crossmap:0.7.3` | CrossMap 0.7.3, pysam, bx-python |
+| **Data Visualization** | `mamana/python-plotting:1.3.0` | Python 3.11, matplotlib, seaborn, pandas |
 | **Comprehensive** | `mamana/imputation:minimac4-4.1.6` | All imputation tools |
 
 ## Running the Pipeline

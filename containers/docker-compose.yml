@@ -110,36 +110,17 @@ services:
     working_dir: /data
     profiles: ["production", "all"]
 
-  # ========================================
-  # LEGACY CONTAINERS (For backwards compatibility)
-  # ========================================
-
-  # PLINK 2.0 (if needed for specific analyses)
-  plink2:
-    build:
-      context: ./plink2
-      dockerfile: Dockerfile
-    image: mamana/plink2:plink2-2.0.0
+  # Python plotting and analysis
+  python-plotting:
+    image: mamana/python-plotting:1.3.0
     volumes:
       - ./data:/data
       - ./input:/input
       - ./output:/output
     working_dir: /data
-    profiles: ["legacy", "all"]
+    profiles: ["production", "all"]
 
-  # All-in-one container (comprehensive but larger)
-  all-in-one:
-    build:
-      context: ./all-in-one
-      dockerfile: Dockerfile
-    image: mamana/genotype-imputation:alpine-3.18
-    volumes:
-      - ./data:/data
-      - ./input:/input
-      - ./output:/output
-      - ./scripts:/scripts
-    working_dir: /data
-    profiles: ["legacy", "all"]
+
 
 # Named volumes for persistent data
 volumes:
