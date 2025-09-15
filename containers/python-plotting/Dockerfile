@@ -1,5 +1,5 @@
-# Use Python Alpine for better package support
-FROM python:3.11-alpine3.19
+# Use Python slim for better compatibility with scientific packages
+FROM python:3.11-slim
 
 # Set metadata
 LABEL maintainer="AfriGen-D Consortium"
@@ -8,36 +8,33 @@ LABEL version="1.3.0"
 LABEL org.opencontainers.image.description="Python 3.11 data visualization and analysis container with matplotlib, seaborn, pandas, numpy, scipy, and plotly for genomics workflows."
 
 # Install system dependencies required for scientific Python packages
-RUN apk add --no-cache \
-    bash \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     g++ \
     gfortran \
-    musl-dev \
-    openblas-dev \
-    lapack-dev \
-    freetype-dev \
+    libc6-dev \
+    libopenblas-dev \
+    liblapack-dev \
+    libfreetype6-dev \
     libpng-dev \
-    jpeg-dev \
-    zlib-dev \
-    ca-certificates \
-    curl
+    libjpeg-dev \
+    zlib1g-dev \
+    pkg-config \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
 # Upgrade pip and install wheel for binary packages
 RUN pip install --upgrade pip wheel setuptools
 
-# Install core scientific packages with specific versions for Alpine compatibility
-# Install numpy first as it's a core dependency
-RUN pip install --no-cache-dir numpy==1.24.3
-
-# Then install other packages
+# Install core scientific packages - use latest compatible versions
 RUN pip install --no-cache-dir \
-    pandas==2.0.3 \
-    matplotlib==3.7.2 \
-    seaborn==0.12.2 \
-    plotly==5.15.0 \
-    scipy==1.11.1 \
-    scikit-learn==1.3.0
+    numpy \
+    pandas \
+    matplotlib \
+    seaborn \
+    plotly \
+    scipy \
+    scikit-learn
 
 # Set environment variables for matplotlib
 ENV MPLBACKEND=Agg
