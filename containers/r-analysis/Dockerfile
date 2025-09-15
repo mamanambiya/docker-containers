@@ -1,8 +1,8 @@
 # Dockerfile for R analysis container with required packages
 FROM rocker/r-ver:4.3.2
 
-# Install system dependencies including Python 3
-RUN apt-get update && apt-get install -y \
+# Install system dependencies including Python 3 with retry logic
+RUN apt-get update || apt-get update && apt-get install -y \
     python3 \
     python3-minimal \
     libcurl4-openssl-dev \

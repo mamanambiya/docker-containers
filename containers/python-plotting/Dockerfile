@@ -23,8 +23,8 @@ RUN apk add --no-cache \
     ca-certificates \
     curl
 
-# Upgrade pip first
-RUN pip install --upgrade pip
+# Upgrade pip and install wheel for binary packages
+RUN pip install --upgrade pip wheel setuptools
 
 # Install core scientific packages with specific versions for Alpine compatibility
 # Install numpy first as it's a core dependency

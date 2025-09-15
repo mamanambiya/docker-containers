@@ -46,7 +46,8 @@ RUN cd /tmp && \
         rm minimac4-${MINIMAC4_VERSION}-Linux-x86_64.sh; \
     else \
         echo "Prebuilt binary download failed, building from source..." && \
-        git clone --depth 1 --branch v${MINIMAC4_VERSION} https://github.com/statgen/Minimac4.git && \
+        git clone --depth 1 --branch v${MINIMAC4_VERSION} https://github.com/statgen/Minimac4.git || \
+        git clone --depth 1 https://github.com/statgen/Minimac4.git && \
         cd Minimac4 && \
         mkdir build && cd build && \
         cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local && \
