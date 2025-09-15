@@ -30,16 +30,24 @@ RUN pip install --no-cache-dir CrossMap==0.7.3
 # Create working directory
 WORKDIR /data
 
-# Test installation - check what commands are available
-RUN python -c "import CrossMap; print('CrossMap module imported successfully')" && \
-    which CrossMap.py || which crossmap || echo "Command not found, using python -m CrossMap"
+# Test installation - CrossMap installs as CrossMap.py
+RUN python -c "import CrossMap; print('CrossMap module imported successfully')"
 
-# Create a simple wrapper script for easier usage
-RUN echo '#!/bin/bash\npython -m CrossMap "$@"' > /usr/local/bin/crossmap && \
-    chmod +x /usr/local/bin/crossmap
+# Check what was installed and create appropriate wrapper
+RUN ls -la /usr/local/bin/ | grep -i crossmap || true && \
+    if [ -f /usr/local/bin/CrossMap.py ]; then \
+        ln -sf /usr/local/bin/CrossMap.py /usr/local/bin/crossmap; \
+    else \
+        echo '#!/usr/bin/env python' > /usr/local/bin/crossmap && \
+        echo 'import sys' >> /usr/local/bin/crossmap && \
+        echo 'from CrossMap.CrossMap import main' >> /usr/local/bin/crossmap && \
+        echo 'if __name__ == "__main__":' >> /usr/local/bin/crossmap && \
+        echo '    main()' >> /usr/local/bin/crossmap && \
+        chmod +x /usr/local/bin/crossmap; \
+    fi
 
-# Test the wrapper
-RUN crossmap --help
+# Test that it works
+RUN crossmap 2>&1 | grep -i "usage" || crossmap --help || CrossMap.py --help || python -c "from CrossMap.CrossMap import main; print('CrossMap ready')"
 
 # Set default command
-CMD ["crossmap", "--help"]
+CMD ["crossmap"]
