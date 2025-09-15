@@ -30,11 +30,16 @@ RUN pip install --no-cache-dir CrossMap==0.7.3
 # Create working directory
 WORKDIR /data
 
-# Create symlink for easier access
-RUN ln -sf /usr/local/bin/CrossMap.py /usr/local/bin/crossmap
+# Test installation - check what commands are available
+RUN python -c "import CrossMap; print('CrossMap module imported successfully')" && \
+    which CrossMap.py || which crossmap || echo "Command not found, using python -m CrossMap"
 
-# Test installation
-RUN CrossMap.py --help
+# Create a simple wrapper script for easier usage
+RUN echo '#!/bin/bash\npython -m CrossMap "$@"' > /usr/local/bin/crossmap && \
+    chmod +x /usr/local/bin/crossmap
+
+# Test the wrapper
+RUN crossmap --help
 
 # Set default command
-CMD ["CrossMap.py", "--help"]
+CMD ["crossmap", "--help"]

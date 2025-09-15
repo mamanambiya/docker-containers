@@ -26,15 +26,18 @@ RUN apk add --no-cache \
 # Upgrade pip first
 RUN pip install --upgrade pip
 
-# Install core scientific packages (let pip handle dependencies)
+# Install core scientific packages with specific versions for Alpine compatibility
+# Install numpy first as it's a core dependency
+RUN pip install --no-cache-dir numpy==1.24.3
+
+# Then install other packages
 RUN pip install --no-cache-dir \
-    numpy \
-    pandas \
-    matplotlib \
-    seaborn \
-    plotly \
-    scipy \
-    scikit-learn
+    pandas==2.0.3 \
+    matplotlib==3.7.2 \
+    seaborn==0.12.2 \
+    plotly==5.15.0 \
+    scipy==1.11.1 \
+    scikit-learn==1.3.0
 
 # Set environment variables for matplotlib
 ENV MPLBACKEND=Agg
