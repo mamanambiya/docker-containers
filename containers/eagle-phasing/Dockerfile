@@ -8,10 +8,12 @@ RUN apk add --no-cache \
     gzip \
     ca-certificates
 
-# Download and extract Eagle
+# Download and extract Eagle with fallback URLs
 WORKDIR /tmp
-RUN wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 3 \
-        https://alkesgroup.broadinstitute.org/Eagle/downloads/Eagle_v2.4.1.tar.gz && \
+RUN (wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 3 \
+        https://alkesgroup.broadinstitute.org/Eagle/downloads/Eagle_v2.4.1.tar.gz || \
+     wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 3 \
+        https://storage.googleapis.com/broad-alkesgroup-public/Eagle/downloads/Eagle_v2.4.1.tar.gz) && \
     tar -xzf Eagle_v2.4.1.tar.gz
 
 # Production stage
