@@ -63,9 +63,20 @@ docker pull mamana/python-plotting:1.3.0
 - **Base**: Alpine Linux 3.19
 - **Size**: ~300MB
 
+#### 6. BCFtools + Python Scientific Stack
+
+```bash
+docker pull mamana/bcftools-python3:1.0.0
+```
+
+- **Purpose**: Combined genomics tools and Python scientific computing
+- **Tools**: BCFtools 1.20, SAMtools 1.20, Python 3.11, NumPy, Pandas, Matplotlib, Pysam, Jupyter
+- **Base**: Python 3.11 Slim
+- **Size**: ~800MB
+
 ### 🚀 Workflow Containers
 
-#### 6. Comprehensive Imputation
+#### 7. Comprehensive Imputation
 
 ```bash
 docker pull mamana/imputation:minimac4-4.1.6
@@ -75,7 +86,7 @@ docker pull mamana/imputation:minimac4-4.1.6
 - **Base**: Alpine Linux 3.18
 - **Size**: ~450MB
 
-#### 7. Comprehensive Phasing
+#### 8. Comprehensive Phasing
 
 ```bash
 docker pull mamana/phasing:eagle-2.4.1

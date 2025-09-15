@@ -120,6 +120,17 @@ services:
     working_dir: /data
     profiles: ["production", "all"]
 
+  # BCFtools with Python scientific stack
+  bcftools-python3:
+    image: mamana/bcftools-python3:1.0.0
+    volumes:
+      - ./data:/data
+      - ./input:/input
+      - ./output:/output
+      - ./scripts:/scripts
+    working_dir: /data
+    profiles: ["production", "all"]
+
 
 
 # Named volumes for persistent data
