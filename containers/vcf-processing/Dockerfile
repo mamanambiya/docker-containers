@@ -32,7 +32,9 @@ RUN apk add --no-cache \
     unzip \
     bzip2 \
     tar \
-    gzip
+    gzip \
+    python3 \
+    py3-pip
 
 WORKDIR /opt/tools
 
@@ -75,6 +77,8 @@ RUN echo '#!/bin/bash' > /usr/local/bin/vcf_tools_info && \
     echo 'echo "VCFtools: $(vcftools --version 2>&1 | head -1)"' >> /usr/local/bin/vcf_tools_info && \
     echo 'echo "tabix: $(tabix --version 2>&1 | head -1)"' >> /usr/local/bin/vcf_tools_info && \
     echo 'echo "htsfile: $(htsfile --version-only 2>/dev/null || echo "Available")"' >> /usr/local/bin/vcf_tools_info && \
+    echo 'echo "Python: $(python3 --version)"' >> /usr/local/bin/vcf_tools_info && \
+    echo 'echo "pip: $(pip3 --version)"' >> /usr/local/bin/vcf_tools_info && \
     chmod +x /usr/local/bin/vcf_tools_info
 
 # Verify installations
