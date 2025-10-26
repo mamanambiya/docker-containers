@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     liblzma-dev \
     libcurl4-openssl-dev \
     libssl-dev \
+    procps \
     && rm -rf /var/lib/apt/lists/*
 
 # Install CrossMap (it will install pysam, bx-python, pyBigWig automatically)
