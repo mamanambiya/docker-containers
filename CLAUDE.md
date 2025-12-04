@@ -73,8 +73,16 @@ docker run --rm -it test-<name>:local /bin/bash
 docker rmi test-<name>:local
 ```
 
+## Git Push (Authenticated)
+
+Use this command to push changes using GitHub CLI authentication:
+
+```bash
+TOKEN=$(gh auth token) && git push https://mamanambiya:${TOKEN}@github.com/mamanambiya/docker-containers.git main
+```
+
 ## Additional Notes
 
 - GitHub Actions will automatically build and push containers when changes are pushed to `main`
-- Container tags follow the pattern: `ghcr.io/shaunchurch/docker-containers/<name>:latest`
+- Container tags follow the pattern: `ghcr.io/mamanambiya/docker-containers/<name>:latest`
 - Always verify the GitHub Actions workflow succeeds after pushing changes
