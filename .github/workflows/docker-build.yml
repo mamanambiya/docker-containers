@@ -480,6 +480,39 @@ jobs:
             }
             console.log(`Cleanup completed: ${deleted} runs deleted`);
 
+  update-dockerhub-description:
+    needs: [prepare, build-custom]
+    runs-on: ubuntu-latest
+    if: needs.prepare.outputs.should_push == 'true' && github.ref == 'refs/heads/main'
+    strategy:
+      fail-fast: false
+      matrix:
+        container: ${{ fromJson(needs.prepare.outputs.containers) }}
+
+    name: Update Docker Hub README for ${{ matrix.container }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check if README exists
+        id: check-readme
+        run: |
+          if [[ -f "containers/${{ matrix.container }}/README.md" ]]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update Docker Hub description
+        if: steps.check-readme.outputs.exists == 'true'
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.container }}
+          readme-filepath: ./containers/${{ matrix.container }}/README.md
+
   summary:
     needs: [prepare, build-custom, check-external-containers, cleanup]
     runs-on: ubuntu-latest
