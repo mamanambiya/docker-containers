@@ -484,6 +484,7 @@ jobs:
     needs: [prepare, build-custom]
     runs-on: ubuntu-latest
     if: needs.prepare.outputs.should_push == 'true' && github.ref == 'refs/heads/main'
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:
