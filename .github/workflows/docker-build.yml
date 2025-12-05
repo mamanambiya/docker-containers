@@ -45,7 +45,7 @@ jobs:
         run: |
           # Build reliable Alpine-based containers (plink2 and analysis have dedicated workflows)
           # All containers re-enabled after successful minimac4-all troubleshooting
-          CUSTOM_CONTAINERS='["eagle-phasing", "minimac4", "minimac4-all", "imputation", "phasing", "vcf-processing", "r-analysis", "crossmap", "python-plotting", "bcftools-python3", "gwaslab"]'
+          CUSTOM_CONTAINERS='["eagle-phasing", "minimac4", "minimac4-all", "imputation", "phasing", "vcf-processing", "r-analysis", "crossmap", "python-plotting", "bcftools-python3", "gwaslab", "picard"]'
           echo "containers=${CUSTOM_CONTAINERS}" >> $GITHUB_OUTPUT
 
       - name: Determine tag
@@ -142,6 +142,10 @@ jobs:
             "gwaslab")
               PRIMARY_VERSION="3.6.13"
               ADDITIONAL_TAGS="python-3.10,pandas,numpy,scipy,matplotlib"
+              ;;
+            "picard")
+              PRIMARY_VERSION="3.3.0"
+              ADDITIONAL_TAGS="openjdk-17,alpine"
               ;;
           esac
           
